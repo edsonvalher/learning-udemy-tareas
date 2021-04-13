@@ -25,30 +25,48 @@ class Tareas {
         this._listado[tarea.id] = tarea
     }
     listar() {
-        // 1: en verde
-        // completada: verde
-        //pendiente: rojo
-        //1. alma :: completada
-        //2. poder:: pendiente
-        //TODO: debe llevar colores los números
+        console.log('\n')
         const arr = this.listadoArr
         let contador = 0
-        arr.forEach(item => {
+        arr.forEach((item, indice) => {
             const { desc, completado } = item
-            contador++
-            let estado = ''
-            if (completado === null) {
-                estado = 'pendiente'.red
-            } else {
-                estado = 'completado'.green
-            }
-            let numero = `${contador}`.green
-
-            let vista = `${numero}. ${desc} :: ${estado}`
+            const estado = (completado) ? 'Completada'.green : 'Pendiente'.red
+            const idx = `${(indice + 1 + '.')}`.green
+            let vista = `${idx} ${desc} :: ${estado}`
             console.log(vista)
         })
-
     }
+    ListarCompletadas(completadas = true) {
+        console.log('\n')
+        let contador = 0
+        const arr = this.listadoArr
+        arr.forEach((item) => {
+            const { desc, completado } = item
+            const estado = (completado) ? 'Completada'.green : 'Pendiente'.red
+            if (completadas) {
+                //completadas
+                if (completado) {
+                    contador++
+                    const idx = `${(contador + '.')}`.green
+                    let vista = `${idx} ${desc} :: ${completado}`
+                    console.log(vista)
+                }
+            } else {
+                //pendientes
+                if (!completado) {
+                    contador++
+                    const idx = `${(contador + '.')}`.green
+                    let vista = `${idx} ${desc} :: ${estado}`
+                    console.log(vista)
+                }
+            }
 
+        })
+    }
+    borrar(id = '') {
+        if (this._listado[id]) {
+            delete this._listado[id]
+        }
+    }
 }
 module.exports = Tareas
