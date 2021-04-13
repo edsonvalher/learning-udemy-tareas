@@ -4,7 +4,6 @@ const {
     , pausa
     , leerInput
 } = require('./helpers/inquirer')
-const Tarea = require('./models/tarea')
 const Tareas = require('./models/tareas')
 
 console.clear()
@@ -23,7 +22,7 @@ const main = async () => {
                 break;
             case '2':
                 //lista tareas
-                console.log(tareas._listado)
+                console.log(tareas.listadoArr)
                 break;
         }
 
