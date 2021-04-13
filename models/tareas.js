@@ -48,7 +48,7 @@ class Tareas {
                 if (completado) {
                     contador++
                     const idx = `${(contador + '.')}`.green
-                    let vista = `${idx} ${desc} :: ${completado}`
+                    let vista = `${idx} ${desc} :: ${(completado).green}`
                     console.log(vista)
                 }
             } else {
@@ -67,6 +67,21 @@ class Tareas {
         if (this._listado[id]) {
             delete this._listado[id]
         }
+    }
+    completar(ids = []) {
+        ids.forEach(id => {
+            const tarea = this._listado[id]
+            if (!tarea.completado) {
+                tarea.completado = new Date().toISOString()
+            }
+        })
+        //para deseleccionar una tarea a pendiente
+        this.listadoArr.forEach(tarea => {
+            //busca en arreglos de ids dentro del arreglo de tareas
+            if (!ids.includes(tarea.id)) {
+                this._listado[tarea.id].completado = null
+            }
+        })
     }
 }
 module.exports = Tareas

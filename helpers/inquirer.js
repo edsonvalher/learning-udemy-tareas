@@ -104,8 +104,6 @@ const listadoTareas = async (tareas = []) => {
     ]
     const { id } = await inquirer.prompt(preguntas)
     return id
-
-
 }
 const confirmar = async (message) => {
     const question = [
@@ -119,10 +117,34 @@ const confirmar = async (message) => {
     return ok
 }
 
+const checklistTareas = async (tareas = []) => {
+    const choices = tareas.map((tarea, i) => {
+        const indice = `${i + 1}.`.green
+        return {
+            value: tarea.id,
+            name: `${indice} ${tarea.desc}`,
+            checked: (tarea.completado) ? true : false
+        }
+    })
+    //añade al inicio del arreglo de choices
+    const preguntas = [
+        {
+            type: 'checkbox',
+            name: 'ids',
+            message: 'Seleccione',
+            choices
+        }
+    ]
+    const { ids } = await inquirer.prompt(preguntas)
+    return ids
+}
+
+
 module.exports = {
     inquirerMenu,
     pausa,
     leerInput,
     listadoTareas,
-    confirmar
+    confirmar,
+    checklistTareas
 }
