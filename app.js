@@ -29,7 +29,7 @@ const main = async () => {
                 break;
             case '2':
                 //lista tareas
-                console.log(tareas.listadoArr)
+                tareas.listar()
                 break;
         }
         //guarda en archivo
